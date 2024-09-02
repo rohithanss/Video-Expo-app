@@ -3,7 +3,7 @@
     "name": "react-native-learn",
     "slug": "react-native-learn",
     "version": "1.0.0",
-    "scheme":"aora",
+    "scheme": "aora",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -17,16 +17,22 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "package":"com.jsm.hans",
+      "package": "com.jsm.hans",
       "infoPlist": {
-        "NSFaceIDUsageDescription": "User Face ID to unlock the app. User don't have to remember the password."
-      }
+        "NSFaceIDUsageDescription": "Allow HANS to use Face ID."
+      },
+      "bundleIdentifier": "com.jsm.hans"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.USE_BIOMETRIC",
+        "android.permission.USE_FINGERPRINT"
+      ],
+      "package": "com.jsm.hans"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -38,7 +44,21 @@
         {
           "faceIDPermission": "Allow HANS to use Face ID."
         }
+      ],
+      [
+        "expo-secure-store",
+        {
+          "faceIDPermission": "Allow HANS to use Face ID."
+        }
       ]
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "fb9a8b1d-ebbe-4dee-ba9c-445dda6a3f9c"
+      }
+    }
   }
 }

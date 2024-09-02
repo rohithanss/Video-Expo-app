@@ -2,19 +2,26 @@ import { Text, View, ScrollView, Image, Alert } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { images } from '../../constants'
 import FormField from '../../components/FormField'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import CustomButton from '../../components/CustomButton'
 import { Link, router } from 'expo-router'
 import { getCurrentUser, signIn } from '../../lib/appwrite'
 import { useGlobalContext } from '../../context/GlobalProvider'
+import * as SecureStore from 'expo-secure-store';
 
 const SignIn = () => {
   const {setIsLoggedIn, setUser, isLoggedIn} = useGlobalContext()
+
+  const [session, setSession] = useState('default');
+  const [session2, setSession2] = useState('default2');
+
   const [form, setForm] = useState({
     email:'',
     password: ''
   })
+
   const [isSubmitting, setIsSubmitting] = useState(false)
+
   const submit =async () => {
     if(!form.email || !form.password) {
       Alert.alert('error', 'Please fill in all fields');
@@ -41,6 +48,19 @@ const SignIn = () => {
     }
 
   }
+
+  const fetchData = ()=>{
+    let saved1 = SecureStore.getItem('session1');
+    let s = SecureStore.setItem('session1', 'session 1');
+    let saved2 = SecureStore.getItem('session2');
+    if(saved1) setSession(saved1);
+    if(saved2) setSession2(saved2);
+  }
+
+  useEffect(()=>{
+    fetchData();
+  },[])
+
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView>
@@ -51,7 +71,7 @@ const SignIn = () => {
             className="w-[115px] h-[35px]"
           />
           <Text className="text-2xl text-white text-semibold mt-10 font-psemibold">
-            Log in to Aora
+            {session} to {session2}
           </Text>
           <FormField
             title="Email"

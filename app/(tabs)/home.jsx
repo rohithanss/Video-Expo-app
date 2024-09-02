@@ -14,21 +14,10 @@ import { useGlobalContext } from '../../context/GlobalProvider';
 
 const Home = () => {
   const {user} = useGlobalContext();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const {data:posts, reFetch, isLoading} = useAppwrite(getAllPosts);
   const {data: latestPosts, reFetch: refetchLatestPosts, isLoading: latestPostsLoading} = useAppwrite(getLatestPosts);
-  const submit = async ()=>{
-    setIsSubmitting(true);
-    console.log('submitting')
-    try {
-      await logout();
-    } catch (error) {
-      console.log(error, 'on logging out')
-    }finally{
-      router.replace('/sign-in');
-      setIsSubmitting(false);
-    }
-  }
+
 
 
 
